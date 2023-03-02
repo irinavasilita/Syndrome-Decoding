@@ -33,7 +33,6 @@ def get_idenity_matrix(P):
 '''
 # Gets the A matrix from the parity check matrix
 
-
 def get_A_matrix(P):
     n, k = P.shape
     print('P has ' + str(n) + ' rows and ' + str(k) + ' columns.', end='\n\n')
@@ -44,7 +43,6 @@ def get_A_matrix(P):
 
 # Constructs the generator matrix G given the A matrix
 
-
 def construct_generator_matrix(A):
     I = np.identity(A.shape[0], dtype=int)
     G = np.concatenate((I, A), axis=1)
@@ -52,7 +50,6 @@ def construct_generator_matrix(A):
     return G
 
 # Constructs the syndrom table
-
 
 def construct_syndrome_table(P):
     n = P.shape[0]
@@ -75,7 +72,6 @@ def construct_syndrome_table(P):
 # Computes the minimum hamming distance given all the codewords
 # Ref: https://stackoverflow.com/questions/42752610/python-how-to-generate-the-pairwise-hamming-distance-matrix
 
-
 def compute_min_HammingDistance(X):
     hamming_d = (X[:, None, :] != X).sum(2)
     min_hamming_d = np.min(hamming_d[np.nonzero(hamming_d)])
@@ -83,7 +79,6 @@ def compute_min_HammingDistance(X):
     return min_hamming_d
 
 # Generates the all the codewords for all messages
-
 
 def generate_messages_codewords(G, nk):
     messages = np.array(list(itertools.product([0, 1], repeat=nk)))
@@ -103,14 +98,12 @@ def generate_messages_codewords(G, nk):
 
 # Returns the maximum number of error that can be detected and covered
 
-
 def can_detect(d):
     detected = d-1
     covered = math.floor((d-1)/2)
     return (detected, covered)
 
 # Decodes a message given the parity check matrix
-
 
 def decode(encoded_m, P):
     syndrome_table = construct_syndrome_table(P)
@@ -145,7 +138,6 @@ def decode(encoded_m, P):
     return encoded_m[:n-k]
 
 # Encodes a message given the Generator matrix
-
 
 def encode(message, G):
     encoded_m = np.dot(message, G)
